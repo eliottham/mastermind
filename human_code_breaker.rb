@@ -2,9 +2,9 @@ class HumanCodeBreaker
 require_relative 'display'
 	def initialize
 		puts "Break the computer's secret code: ? ? ? ?"
-		@secret_code = ['B', 'G', 'R', 'P', 'O', 'W'].sample(4)
-		puts @secret_code
+		#@secret_code = ['B', 'G', 'R', 'P', 'O', 'W'].sample(4)
 		@secret_code = ['W', 'W', 'B', 'B']
+		print @secret_code
 		@turn = 0
 		@game_board = Display.new
 		game
@@ -35,7 +35,7 @@ require_relative 'display'
 				@feedback.push('*')
 			end
 		end
-		@feedback = @feedback.shuffle.join(" ")
+		#@feedback = @feedback.shuffle.join(" ")
 	end
 
 	def game
