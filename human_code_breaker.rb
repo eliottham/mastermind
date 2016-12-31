@@ -44,13 +44,7 @@ require_relative 'display'
 	end
 
 	def game_over?
-		flag = 0
-		4.times do |i|
-			if @choices[i] == @secret_code[i]
-				flag += 1
-			end
-		end
-		if flag == 4
+		if @choices[0..3] == @secret_code[0..3]
 			puts "You broke the secret code!" 
 			puts "The secret code was #{@secret_code[0]} #{@secret_code[1]} #{@secret_code[2]} #{@secret_code[3]}"
 			return true
@@ -74,4 +68,4 @@ require_relative 'display'
 end
 
 
-game = HumanCodeBreaker.new
+codebreaker = HumanCodeBreaker.new
