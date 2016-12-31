@@ -2,9 +2,7 @@ class HumanCodeBreaker
 require_relative 'display'
 	def initialize
 		puts "Break the computer's secret code: ? ? ? ?"
-		#@secret_code = ['B', 'G', 'R', 'P', 'O', 'W'].sample(4)
-		@secret_code = ['W', 'W', 'B', 'B']
-		print @secret_code
+		@secret_code = ['B', 'G', 'R', 'P', 'O', 'W'].sample(4)
 		@turn = 0
 		@game_board = Display.new
 		game
@@ -16,7 +14,7 @@ require_relative 'display'
 		4.times do |i|
 			puts "Choose a color for slot #{i + 1}."
 			@choices[i] = gets.chomp
-			if (@choices[i] =~ /[B || G || R || P || O || W]/) == nil
+			if (@choices[i] =~ /[B || G || R || P || O || W]/) == nil || @choices[i].size != 1
 				puts "Invalid choice. Try again."
 				puts "Color options: 'B' - blue, 'G' - green, 'R' - red, 'P' - purple, 'O' - orange, 'W' - white."
 				redo
@@ -27,15 +25,23 @@ require_relative 'display'
 	end
 
 	def feedback
-		@feedback = Array.new
-		for i in 0...4 
+		@feedback = Array.new(4)
+		remaining_choices = @choices.dup
+		remaining_code = @secret_code.dup
+		4.times do |i|
 			if @choices[i] == @secret_code[i]
-				@feedback.push('!')
-			elsif @choices.any? { |element| element == @secret_code[i] }
-				@feedback.push('*')
+				@feedback[i] = '!'
+				remaining_choices[i] = nil
+				remaining_code[i] = nil
 			end
 		end
-		#@feedback = @feedback.shuffle.join(" ")
+		4.times do |i|
+			if remaining_choices.any? { |element| element == remaining_code[i]}
+				@feedback[i] ||= '*'
+			end
+		end
+	
+		@feedback = @feedback.compact.shuffle.join(' ')
 	end
 
 	def game
