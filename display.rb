@@ -23,8 +23,4 @@ class Display
 		end
 		@board[current_row][4] = feedback
 	end
-
-
-
-
 end
